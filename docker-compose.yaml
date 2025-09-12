@@ -1,0 +1,31 @@
+services:
+  mru-exp-img:
+  # will build the image
+    build:
+      context: .
+    ports:
+      - "9898:9797"
+      # Anonymous Volumes
+    # volumes:
+    #   - .:/app:ro
+    # .environment:
+    #   - PORT=9898
+    env_file:
+      - .env
+    # command: npm run dev
+    depends_on:
+      - mongo-db
+
+  mongo-db:
+    image: mongo
+    # ports:
+    #   - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    # Named volume - to store mongodb data
+    volumes:
+      - mongo-vol:/data/db
+
+volumes:
+  mongo-vol:

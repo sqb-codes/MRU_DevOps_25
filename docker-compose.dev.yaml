@@ -1,0 +1,8 @@
+services:
+  mru-exp-img:
+    # Anonymous Volumes
+    volumes:
+      - .:/app:ro
+    environment:
+      - NODE_ENV=development
+    command: npm run dev

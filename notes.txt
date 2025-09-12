@@ -88,3 +88,40 @@ Docker Compose
 1. Because the command is now too complicated
 2. What if we want to handle multiple containers
 
+Run docker compose:
+- docker compose up -d
+
+Build image again
+- docker compose up -d --build
+
+Down docker compose
+- docker compose down
+
+- docker compose down -v
+-v is for removing anonymous volumes
+
+===============
+
+Dev and Prod environment:
+- first update package.json: install nodemon in dev environment
+    - npm install nodemon --save-dev
+- second update Dockerfile and add if else
+
+ARG NODE_ENV
+RUN if [ "${NODE_ENV}" = "development" ]; \
+    then npm install; \
+    else npm install --only=production; \
+fi
+
+- third update CMD in Dockerfile
+
+Now let's execute docker with dev and prod environment
+
+Dev environment
+- docker compose -f docker-compose.yaml -f docker-compose.dev.yaml up -d
+
+Down docker compose dev
+- docker compose -f docker-compose.yaml -f docker-compose.dev.yaml down
+
+Prod environment
+- docker compose -f docker-compose.yaml -f docker-compose.prod.yaml up -d
