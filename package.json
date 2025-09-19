@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js",
+    "prod": "node server.js",
+    "test": "jest --ci --reporters=default --reporters-jest-junit",
     "start": "node server.js"
   },
   "keywords": [],
@@ -12,5 +14,10 @@
   "description": "",
   "dependencies": {
     "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-junit": "^16.0.0",
+    "nodemon": "^3.1.10"
   }
 }
