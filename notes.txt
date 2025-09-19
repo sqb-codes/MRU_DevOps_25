@@ -125,3 +125,134 @@ Down docker compose dev
 
 Prod environment
 - docker compose -f docker-compose.yaml -f docker-compose.prod.yaml up -d
+
+==============================
+
+Push to Docker Hub
+docker tag my-app-mru-exp-img ravixebia/mru-hub:my-app-mru-exp-img
+docker push ravixebia/mru-hub:my-app-mru-exp-img
+
+==============================
+
+Jenkins
+Phase 1:
+What is Jenkins
+CI vs CD vs CI/CD
+Jenkins architecture (Master/Agent)
+Instllation
+
+Phase 2:
+Freestyle vs Pipeline
+Create simple freestyle job
+Create simple pipeline job
+What is Jenkinsfile
+Basic pipeline syntax
+
+Phase 3: CI/CD Setup
+Git Plugins integration
+GitHub integration
+SCM Polling
+Build triggers
+Clone repo and compile Java/Python code
+Workspaces concept
+
+Phase 4: Build Automation
+Maven tools/npm configuration in Jenkins
+Unit test with Jenkins
+Build a full pipeline that compile, test and show testing results
+
+Phase 5: Jenkins + Docker + GitHub
+Docker agents
+Jenkins + Docker 
+docker CLI inside Jenkinsfile
+DockerGub / GitHub
+
+Phase 6: Deployment
+Parameterized Pipelines
+Deploy on AWS EC2
+Jenkin shared libraries
+Webhooks to auto-trigger the builds
+Parallel stages
+Multibrach pipelines
+
+
+At the end:
+1. Pull code from GitHub
+2. Run test with JUnit/PyUnit
+3. Build Docker Image
+4. Push image to DockerHub
+5. Deploy to staging via SSH
+
+=============================
+
+What is Jenkins ?
+- Automation server used to automate tasks related to building, testing and deployment
+
+Use cases for Jenkins:
+1. CI/CD
+2. Automation testing
+3. Code quality analysis (Sonarqube)
+4. Docker image builds
+5. Deployment to server (AWS, Azure, Kubernetes)
+
+Architecture of Jenkins
+Developer -> GitHub -> Jenkins -> Build -> Test -> Deploy
+
+
+Install jest package 
+npm install --save-dev jest jest-junit
+
+=========================
+
+Kubernetes
+- also known as K8s
+- open source platform for managing containerization workloads & services
+- a cluster OS for containers
+
+You deploy apps as Pods (container) managed by Deployments
+You expose apps with Services/Ingress
+
+Main features of K8s:
+1. Self-healing: it automatically restarts, replaces or reschedule containers that fail
+2. Automated Rollouts & Rollbacks: We can easily update application without downtime. If something goes wrong, we can quickly revert to a previous version
+3. Service Discovery & Load Balancing: K8s gives containers their own IP address and a single DNS name, allowing for easy communication and traffic distribution
+4. Horizontal Scaling: You can scale your application up or down with simple commands or configure it to scale automatically based on CPU usage
+
+Core Concepts of K8s:
+Cluster: Set of machines (called nodes)
+Master Node (Control Plane): Brain of the cluster
+Worker Node: The machine that actually runs your application. Each worker node has a kubelet (an agent that communicate with the control plane)
+Pod: Smallest and most fundamental unit in K8s. It's a single instance of an application that can contain onr or more containers
+
+================
+
+Instllation on Mac/Linux
+
+Kubectl: CLI Tools + Local Cluster
+- brew install kubectl
+
+Install Minikube
+- Local Kubernetes, mainly focuses on learning and developing Kubernetes
+- brew install minikube
+
+
+Let's create first example
+kubectl create ns lab1
+kubectl -n lab1 create deployment greet --image=nginxdemos/hello
+kubectl -n lab1 get deploy,pods
+
+Expose deployment as a service
+kubectl -n lab1 expose deployment greet --port=80 --target-port=80 --type=ClusterIP
+
+Access locally (port-forwarding)
+kubectl -n lab port-forward deploy/hello 8080:80
+
+Open browser and type - http://localhost:8080/
+
+
+Scale Up
+kubectl -n lab1 scale deploy/greet --replicas=3
+kubectl -n lab1 get pods -o wide
+
+In order to run app.yaml
+kubectl apply -f app.yaml
